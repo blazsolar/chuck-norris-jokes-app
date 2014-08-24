@@ -1,4 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "http://dl.bintray.com/blazsolar/gradle-plugins"
+        }
+    }
+    dependencies {
+        classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.0"
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.blazsolar.coveralls'
 apply from: '../config/quality.gradle'
 
 android {
@@ -49,4 +62,8 @@ dependencies {
     androidTestCompile('com.squareup.okhttp:mockwebserver:2.0.0') {
         exclude group: 'com.squareup.okhttp', module: 'okhttp'
     }
+}
+
+coveralls {
+    jacocoReportPath = 'build/outputs/reports/coverage/debug/report.xml'
 }

@@ -3,6 +3,7 @@
 App displays Chuck Norris joke every time you opened it.
 
 [![Build Status](https://travis-ci.org/blazsolar/chuck-norris-jokes-app.svg?branch=master)](https://travis-ci.org/blazsolar/chuck-norris-jokes-app)
+[![Coverage Status](https://coveralls.io/repos/blazsolar/chuck-norris-jokes-app/badge.png)](https://coveralls.io/r/blazsolar/chuck-norris-jokes-app)
 
 ## Setup
 ### Install Android SDK

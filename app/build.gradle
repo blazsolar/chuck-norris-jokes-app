@@ -1,17 +1,19 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "http://dl.bintray.com/blazsolar/gradle-plugins"
-        }
+//        maven {
+//            url "http://dl.bintray.com/blazsolar/gradle-plugins"
+//        }
     }
     dependencies {
-        classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.0"
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
+//        classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.0"
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.blazsolar.coveralls'
+apply plugin: 'com.github.kt3k.coveralls'
+//apply plugin: 'com.github.blazsolar.coveralls'
 apply from: '../config/quality.gradle'
 
 android {

@@ -1,0 +1,16 @@
+language: android
+jdk: oraclejdk7
+
+env:
+  matrix:
+  - ANDROID_TARGET=android-20  ANDROID_ABI=armeabi-v7a
+#  - ANDROID_TARGET=android-9  ANDROID_ABI=armeabi
+
+android:
+  components:
+    - build-tools-20.0.0
+    - android-20
+
+before_script:
+  - adb wait-for-device
+  - adb shell input keyevent 82 &

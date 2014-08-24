@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.0"
+        classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.1"
     }
 }
 

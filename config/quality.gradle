@@ -1,0 +1,107 @@
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+check.dependsOn 'checkstyle', 'findbugs', 'pmd'
+
+/**
+ * Generates Checkstyle report for debug build.
+ */
+task checkstyle(type: Checkstyle) {
+    configFile file("${project.rootDir}/config/quality/checkstyle/checkstyle.xml")
+    source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+
+    reports {
+        xml {
+            destination "$project.buildDir/outputs/reports/checkstyle/checkstyle.xml"
+        }
+    }
+}
+
+/**
+ * Generate Checkstyle report for test classes.
+ */
+task checkstyleTest(type: Checkstyle) {
+    configFile file("${project.rootDir}/config/quality/checkstyle/checkstyle.xml")
+    source project.android.sourceSets.androidTest.java.getSrcDirs();
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+
+    reports {
+        xml {
+            destination "$project.buildDir/outputs/reports/checkstyle/checkstyle-test.xml"
+        }
+    }
+}
+
+/**
+ * Generates HTML report for checkstyle
+ *
+ * TODO should be run after checkstyle
+ */
+task checkstyleReport << {
+    ant.xslt(in: "$project.buildDir/outputs/reports/checkstyle/checkstyle.xml",
+            style: "$project.rootDir/config/checkstyle/checkstyle.xsl",
+            out: "$project.buildDir/outputs/reports/checkstyle/checkstyle.html"
+    )
+}
+
+/**
+ * Generates findbug reports
+ *
+ * Checks are always run for debug build so we need to depend on compileDebugJava
+ */
+task findbugs(type: FindBugs, dependsOn: 'compileDebugJava') {
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = new File("${project.rootDir}/config/quality/findbugs/findbugs-filter.xml")
+    classes = files("$project.buildDir/intermediates/classes")
+
+    source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        html {
+            enabled false
+        }
+        xml {
+            enabled true
+            destination "$project.buildDir/outputs/reports/findbugs/findbugs-${project.name}.xml"
+            xml.withMessages true
+        }
+    }
+
+    classpath = files()
+}
+
+/**
+ * Generates PMD report
+ */
+task pmd(type: Pmd) {
+    ruleSetFiles = files("${project.rootDir}/config/quality/pmd/pmd-ruleset.xml")
+    ignoreFailures = true
+    ruleSets = ["basic", "braces", "strings", "android"]
+
+    source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        html {
+            enabled = false
+            destination "$project.buildDir/outputs/reports/pmd/pmd.html"
+        }
+        xml {
+            enabled = true
+            destination "$project.buildDir/outputs/reports/pmd/pmd.xml"
+        }
+    }
+}

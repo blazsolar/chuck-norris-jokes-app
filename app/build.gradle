@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply from: '../config/quality.gradle'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.github.blazsolar.chuck"
+        minSdkVersion 14
+        targetSdkVersion 20
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+
+        debug {
+            testCoverageEnabled = true
+        }
+
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        lintConfig file("../config/quality/lint/lint.xml")
+    }
+
+    jacoco {
+        version = '0.7.1.201405082137'
+    }
+}
+
+dependencies {
+    compile 'com.squareup.dagger:dagger:1.2.2'
+    compile 'com.squareup.retrofit:retrofit:1.6.1'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.netflix.rxjava:rxjava-android:0.20.0'
+
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+
+    androidTestCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
+    androidTestCompile('com.squareup.okhttp:mockwebserver:2.0.0') {
+        exclude group: 'com.squareup.okhttp', module: 'okhttp'
+    }
+}

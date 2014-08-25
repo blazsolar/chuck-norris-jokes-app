@@ -14,6 +14,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.github.blazsolar.coveralls'
 apply from: '../config/quality.gradle'
 
+if (!project.hasProperty("chuckProductionStorePassword")) {
+    ext.chuckProductionStorePassword = ""
+}
+
+if (!project.hasProperty("chuckProductionAlias")) {
+    ext.chuckProductionAlias = ""
+}
+
+if (!project.hasProperty("chuckProductionKey")) {
+    ext.chuckProductionKey = ""
+}
+
 android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
@@ -26,6 +38,15 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file('keystore/release.keystore')
+            storePassword chuckProductionStorePassword
+            keyAlias chuckProductionAlias
+            keyPassword chuckProductionKey
+        }
+    }
+
     buildTypes {
 
         debug {
@@ -35,6 +56,7 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 

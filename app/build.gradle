@@ -1,16 +1,22 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "http://dl.bintray.com/blazsolar/gradle-plugins"
-        }
+        maven { url "http://dl.bintray.com/blazsolar/gradle-plugins" }
+        maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
         classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.1"
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'crashlytics'
+
+repositories {
+    maven { url 'http://download.crashlytics.com/maven' }
+}
+
 apply plugin: 'com.github.blazsolar.coveralls'
 apply from: '../config/quality.gradle'
 
@@ -84,6 +90,7 @@ dependencies {
     androidTestCompile('com.squareup.okhttp:mockwebserver:2.0.0') {
         exclude group: 'com.squareup.okhttp', module: 'okhttp'
     }
+    compile 'com.crashlytics.android:crashlytics:1.+'
 }
 
 coveralls {

@@ -3,6 +3,7 @@ package com.github.blazsolar.chuck.ui.main;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
 import com.github.blazsolar.chuck.ui.BaseActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         setContentView(R.layout.activity_main);
 
         mJokeView = (TextView) findViewById(R.id.joke);

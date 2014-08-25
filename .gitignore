@@ -27,6 +27,7 @@ build/
 
 # Crashlytics
 com_crashlytics_export_strings.xml
+crashlytics-build.properties
 
 # Do not commit keystore
 keystore/

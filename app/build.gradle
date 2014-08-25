@@ -1,24 +1,26 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
         maven { url "http://dl.bintray.com/blazsolar/gradle-plugins" }
         maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
         classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.1"
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        classpath 'com.github.blazsolar.gradle:play-publisher:0.1.0'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'crashlytics'
+apply plugin: 'com.github.blazsolar.play-publisher'
+apply plugin: 'com.github.blazsolar.coveralls'
+apply from: '../config/quality.gradle'
 
 repositories {
     maven { url 'http://download.crashlytics.com/maven' }
 }
-
-apply plugin: 'com.github.blazsolar.coveralls'
-apply from: '../config/quality.gradle'
 
 if (!project.hasProperty("chuckProductionStorePassword")) {
     ext.chuckProductionStorePassword = ""
@@ -95,4 +97,19 @@ dependencies {
 
 coveralls {
     jacocoReportPath = 'build/outputs/reports/coverage/debug/report.xml'
+}
+
+playPublisher {
+    applicationName "BlazSolar_ChuckNorrisJokes/1.0"
+    packageName "com.github.blazsolar.chuck"
+    serviceAccountEmail "550173791554-l8136lroavuf5d8qflti6g18q62fi5o6@developer.gserviceaccount.com"
+    keyP12 "/Users/blazsolar/.android/play/client_key.p12"
+}
+
+task uploadApk(type: com.github.blazsolar.gradle.tasks.UploadApkTask, dependsOn: assembleRelease) {
+    apkPath "app/build/outputs/apk/app-release.apk"
+    track TRACK_PRODUCTION
+    listings = [
+            (Locale.US.toString()): "Bug fixes" // TODO this should be generic
+    ]
 }

@@ -22,6 +22,7 @@ before_script:
 script:
   - ./gradlew check
   - ./gradlew connectedCheck
+  - adb shell monkey -p com.github.blazsolar.chuck -v 10000
 
 after_success:
   - ./gradlew coveralls

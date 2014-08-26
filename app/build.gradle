@@ -44,6 +44,9 @@ android {
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
+
+        resConfigs "en"
+        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
     }
 
     signingConfigs {

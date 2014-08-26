@@ -11,6 +11,7 @@ android:
     - build-tools-20.0.0
     - android-20
     - android-14
+    - sys-img-armeabi-v7a-android-14
 
 before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI

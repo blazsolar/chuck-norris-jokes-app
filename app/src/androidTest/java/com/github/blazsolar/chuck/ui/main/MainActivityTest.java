@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
+import com.github.blazsolar.chuck.mock.MockApplicationCompact;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import si.dlabs.exampleproject.mock.MockApplicationCompact;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

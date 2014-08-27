@@ -1,4 +1,4 @@
-package si.dlabs.exampleproject;
+package com.github.blazsolar.chuck;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

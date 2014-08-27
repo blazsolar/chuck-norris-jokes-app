@@ -1,4 +1,4 @@
-package si.dlabs.exampleproject.mock;
+package com.github.blazsolar.chuck.mock;
 
 import android.app.Application;
 import android.content.Context;

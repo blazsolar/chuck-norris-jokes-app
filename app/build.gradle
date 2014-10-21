@@ -34,6 +34,9 @@ if (!project.hasProperty("chuckProductionKey")) {
     ext.chuckProductionKey = ""
 }
 
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.0.1"
@@ -44,6 +47,9 @@ android {
         targetSdkVersion 21
         versionCode 2
         versionName "1.1"
+
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
     }
 
     signingConfigs {

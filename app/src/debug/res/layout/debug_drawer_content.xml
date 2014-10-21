@@ -8,6 +8,59 @@
     android:columnCount="2"
     tools:ignore="UselessParent">
 
+    <!-- BUILD INFORMATION SECTION -->
+
+    <TextView
+        android:layout_columnSpan="2"
+        android:layout_gravity="start|end"
+        android:text="Build Information"
+        style="@style/Widget.DLabs.DebugDrawer.Header"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Name"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_build_name"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Code"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_build_code"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="SHA"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_build_sha"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Date"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_build_date"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
     <!-- DEVICE INFORMATION SECTION -->
 
     <TextView

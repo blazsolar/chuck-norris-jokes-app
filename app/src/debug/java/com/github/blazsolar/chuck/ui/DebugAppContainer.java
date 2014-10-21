@@ -8,7 +8,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.blazsolar.chuck.BuildConfig;
 import com.github.blazsolar.chuck.R;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -20,10 +27,17 @@ import butterknife.InjectView;
  */
 public class DebugAppContainer implements AppContainer {
 
+    private static final DateFormat DATE_DISPLAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+
     private Activity activity;
 
     @InjectView(R.id.debug_drawer_layout) DrawerLayout drawerLayout;
     @InjectView(R.id.debug_content) ViewGroup content;
+
+    @InjectView(R.id.debug_build_name) TextView buildNameView;
+    @InjectView(R.id.debug_build_code) TextView buildCodeView;
+    @InjectView(R.id.debug_build_sha) TextView buildShaView;
+    @InjectView(R.id.debug_build_date) TextView buildDateView;
 
     @InjectView(R.id.debug_device_make) TextView deviceMakeView;
     @InjectView(R.id.debug_device_model) TextView deviceModelView;
@@ -47,9 +61,26 @@ public class DebugAppContainer implements AppContainer {
 
         ButterKnife.inject(this, activity);
 
+        setupBuildSection();
         setupDeviceSection();
 
         return content;
+    }
+
+    private void setupBuildSection() {
+        buildNameView.setText(BuildConfig.VERSION_NAME);
+        buildCodeView.setText(String.valueOf(BuildConfig.VERSION_CODE));
+        buildShaView.setText(BuildConfig.GIT_SHA);
+
+        try {
+            // Parse ISO8601-format time into local time.
+            DateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+            inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date buildTime = inFormat.parse(BuildConfig.BUILD_TIME);
+            buildDateView.setText(DATE_DISPLAY_FORMAT.format(buildTime));
+        } catch (ParseException e) {
+            throw new RuntimeException("Unable to decode build time: " + BuildConfig.BUILD_TIME, e);
+        }
     }
 
     private void setupDeviceSection() {

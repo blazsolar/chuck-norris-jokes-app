@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:columnCount="2"
+    tools:ignore="UselessParent">
+
+    <!-- DEVICE INFORMATION SECTION -->
+
+    <TextView
+        android:layout_columnSpan="2"
+        android:layout_gravity="start|end"
+        android:text="Device Information"
+        style="@style/Widget.DLabs.DebugDrawer.Header"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Make"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_make"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Model"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_model"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Resolution"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_resolution"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Density"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_density"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Release"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_release"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="API"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <TextView
+        android:id="@+id/debug_device_api"
+        android:layout_gravity="start|end|center_vertical"
+        style="@style/Widget.DLabs.DebugDrawer.RowValue"
+        />
+
+</GridLayout>

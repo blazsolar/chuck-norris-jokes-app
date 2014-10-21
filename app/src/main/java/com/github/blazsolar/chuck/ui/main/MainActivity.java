@@ -21,7 +21,6 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-        setContentView(R.layout.activity_main);
 
         mJokeView = (TextView) findViewById(R.id.joke);
 
@@ -45,6 +44,11 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public Object[] getModules() {
         return new Object[] { new MainModule(this) };
+    }
+
+    @Override
+    public int getContentLayout() {
+        return R.layout.activity_main;
     }
 
     @Override

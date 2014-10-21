@@ -2,9 +2,11 @@ package com.github.blazsolar.chuck;
 
 import android.content.Context;
 
+import com.github.blazsolar.chuck.data.DataModule;
+import com.github.blazsolar.chuck.ui.UIModule;
+
 import dagger.Module;
 import dagger.Provides;
-import com.github.blazsolar.chuck.data.DataModule;
 
 /**
  * Created by Blaz Solar on 23/08/14.
@@ -12,7 +14,10 @@ import com.github.blazsolar.chuck.data.DataModule;
 @Module(
         injects = App.class,
         library = true,
-        includes = DataModule.class
+        includes = {
+                DataModule.class,
+                UIModule.class
+        }
 )
 public class AppModule {
 

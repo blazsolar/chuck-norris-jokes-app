@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.ui.main;
+package com.github.blazsolar.chuck.integration.main;
 
 import com.github.blazsolar.chuck.data.api.model.Joke;
 

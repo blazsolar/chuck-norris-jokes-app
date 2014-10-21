@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.ui.main;
+package com.github.blazsolar.chuck.integration.main;
 
 import javax.inject.Singleton;
 

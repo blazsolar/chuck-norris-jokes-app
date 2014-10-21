@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data.api;
+package com.github.blazsolar.chuck.integration.data.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

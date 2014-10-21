@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data;
+package com.github.blazsolar.chuck.integration.data;
 
 import com.squareup.okhttp.OkHttpClient;
 
@@ -6,8 +6,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.github.blazsolar.chuck.data.api.ApiModule;
-import com.github.blazsolar.chuck.data.api.JokesService;
+import com.github.blazsolar.chuck.integration.data.api.ApiModule;
+import com.github.blazsolar.chuck.integration.data.api.JokesService;
 
 /**
  * Created by Blaz Solar on 23/08/14.

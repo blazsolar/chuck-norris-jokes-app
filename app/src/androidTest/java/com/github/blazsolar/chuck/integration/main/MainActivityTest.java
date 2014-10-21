@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.ui.main;
+package com.github.blazsolar.chuck.integration.main;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
-import com.github.blazsolar.chuck.mock.MockApplicationCompact;
+import com.github.blazsolar.chuck.integration.mock.MockApplicationCompact;
 
 import java.util.Arrays;
 import java.util.List;

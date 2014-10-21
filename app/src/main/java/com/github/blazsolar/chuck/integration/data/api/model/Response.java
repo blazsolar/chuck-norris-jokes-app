@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data.api.model;
+package com.github.blazsolar.chuck.integration.data.api.model;
 
 /**
  * Created by Blaz Solar on 23/08/14.

@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data.rx;
+package com.github.blazsolar.chuck.integration.data.rx;
 
 import rx.Observer;
 

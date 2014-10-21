@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data;
+package com.github.blazsolar.chuck.integration.data;
 
 import java.io.IOException;
 
@@ -11,10 +11,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
-import com.github.blazsolar.chuck.data.api.JokesService;
-import com.github.blazsolar.chuck.data.api.model.Joke;
-import com.github.blazsolar.chuck.data.api.model.Response;
-import com.github.blazsolar.chuck.data.rx.EndObserver;
+import com.github.blazsolar.chuck.integration.data.api.JokesService;
+import com.github.blazsolar.chuck.integration.data.api.model.Joke;
+import com.github.blazsolar.chuck.integration.data.api.model.Response;
+import com.github.blazsolar.chuck.integration.data.rx.EndObserver;
 
 /**
  * Created by Blaz Solar on 23/08/14.

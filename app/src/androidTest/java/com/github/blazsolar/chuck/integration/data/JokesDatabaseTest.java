@@ -1,4 +1,4 @@
-package com.github.blazsolar.chuck.data;
+package com.github.blazsolar.chuck.integration.data;
 
 import android.test.AndroidTestCase;
 
@@ -20,8 +20,8 @@ import dagger.Provides;
 import retrofit.Endpoint;
 import retrofit.Endpoints;
 import rx.observers.EmptyObserver;
-import com.github.blazsolar.chuck.data.api.JokesService;
-import com.github.blazsolar.chuck.data.api.model.Joke;
+import com.github.blazsolar.chuck.integration.data.api.JokesService;
+import com.github.blazsolar.chuck.integration.data.api.model.Joke;
 
 public class JokesDatabaseTest extends AndroidTestCase {
 

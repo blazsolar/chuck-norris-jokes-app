@@ -11,13 +11,18 @@ import dagger.ObjectGraph;
 public class App extends Application {
 
     /** Application object graph */
-    private ObjectGraph mObjectGraph;
+    private ObjectGraph objectGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mObjectGraph = ObjectGraph.create(Modules.list(this));
+        buildObjectGraphAndInject();
+    }
+
+    public void buildObjectGraphAndInject() {
+        objectGraph = ObjectGraph.create(Modules.list(this));
+        objectGraph.inject(this);
     }
 
     /**
@@ -28,11 +33,11 @@ public class App extends Application {
      * @return Merged object graph
      */
     public ObjectGraph createScopedGraph(Object... modules) {
-        return mObjectGraph.plus(modules);
+        return objectGraph.plus(modules);
     }
 
     public void inject(Object object) {
-        mObjectGraph.inject(object);
+        objectGraph.inject(object);
     }
 
     /**

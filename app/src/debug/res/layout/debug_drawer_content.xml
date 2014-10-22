@@ -8,6 +8,82 @@
     android:columnCount="2"
     tools:ignore="UselessParent">
 
+    <!-- NETWORK SECTION -->
+
+    <TextView
+        android:layout_columnSpan="2"
+        android:layout_gravity="start|end"
+        android:text="Network"
+        style="@style/Widget.DLabs.DebugDrawer.Header"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Endpoint"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="start|end|center_vertical"
+        android:gravity="center_vertical"
+        >
+        <Spinner
+            android:id="@+id/debug_network_endpoint"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:id="@+id/debug_network_endpoint_edit"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/debug_drawer_icon_edit"
+            android:background="?android:attr/actionBarItemBackground"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Delay"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <Spinner
+        android:id="@+id/debug_network_delay"
+        android:layout_gravity="start|end|center_vertical"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Variance"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <Spinner
+        android:id="@+id/debug_network_variance"
+        android:layout_gravity="start|end|center_vertical"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Error"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <Spinner
+        android:id="@+id/debug_network_error"
+        android:layout_gravity="start|end|center_vertical"
+        />
+
+    <TextView
+        android:layout_gravity="start|end|center_vertical"
+        android:text="Logging"
+        style="@style/Widget.DLabs.DebugDrawer.RowTitle"
+        />
+    <Spinner
+        android:id="@+id/debug_network_logging"
+        android:layout_gravity="start|end|center_vertical"
+        />
+
     <!-- BUILD INFORMATION SECTION -->
 
     <TextView

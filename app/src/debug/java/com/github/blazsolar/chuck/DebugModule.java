@@ -1,5 +1,6 @@
 package com.github.blazsolar.chuck;
 
+import com.github.blazsolar.chuck.data.DebugDataModule;
 import com.github.blazsolar.chuck.ui.DebugUiModule;
 
 import dagger.Module;
@@ -10,6 +11,7 @@ import dagger.Module;
 @Module(
     addsTo = AppModule.class,
     includes = {
+            DebugDataModule.class,
             DebugUiModule.class
     },
     overrides = true

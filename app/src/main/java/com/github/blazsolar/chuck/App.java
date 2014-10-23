@@ -3,9 +3,6 @@ package com.github.blazsolar.chuck;
 import android.app.Application;
 import android.content.Context;
 
-import java.util.Arrays;
-import java.util.List;
-
 import dagger.ObjectGraph;
 
 /**
@@ -14,13 +11,18 @@ import dagger.ObjectGraph;
 public class App extends Application {
 
     /** Application object graph */
-    private ObjectGraph mObjectGraph;
+    private ObjectGraph objectGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mObjectGraph = ObjectGraph.create(getModules().toArray());
+        buildObjectGraphAndInject();
+    }
+
+    public void buildObjectGraphAndInject() {
+        objectGraph = ObjectGraph.create(Modules.list(this));
+        objectGraph.inject(this);
     }
 
     /**
@@ -31,20 +33,11 @@ public class App extends Application {
      * @return Merged object graph
      */
     public ObjectGraph createScopedGraph(Object... modules) {
-        return mObjectGraph.plus(modules);
+        return objectGraph.plus(modules);
     }
 
     public void inject(Object object) {
-        mObjectGraph.inject(object);
-    }
-
-    /**
-     * Builds and returns list of dagger modules for application scope.
-     *
-     * @return List of dagger modules.
-     */
-    protected List<Object> getModules() {
-        return Arrays.<Object>asList(new AppModule(this));
+        objectGraph.inject(object);
     }
 
     /**

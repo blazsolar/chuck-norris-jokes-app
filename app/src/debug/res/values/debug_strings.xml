@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="debug_drawer_network_endpoint_description">Enter the URL of the server to which you want to connect.\n\ne.g., https://bob-loblaw.local/1.0/</string>
+
+</resources>

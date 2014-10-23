@@ -1,11 +1,13 @@
 package com.github.blazsolar.chuck.data.api;
 
+import com.github.blazsolar.chuck.data.Constants;
+
 /**
  * Created by Blaz Solar on 22/10/14.
  */
 public enum ApiEndpoints {
 
-    PRODUCTION("Production", ""),
+    PRODUCTION("Production", Constants.API_ENDPOINT),
     MOCK_MODE("Mock Mode", "mock://"),
     CUSTOM("Custom", null);
 

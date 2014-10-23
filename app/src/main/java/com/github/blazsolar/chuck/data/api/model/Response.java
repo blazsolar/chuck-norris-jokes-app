@@ -11,6 +11,10 @@ public class Response<T> {
     public Response() {
     }
 
+    public Response(T value) {
+        this.value = value;
+    }
+
     public T getValue() {
         return value;
     }

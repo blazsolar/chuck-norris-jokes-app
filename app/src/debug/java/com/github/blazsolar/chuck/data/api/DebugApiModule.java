@@ -3,6 +3,7 @@ package com.github.blazsolar.chuck.data.api;
 import android.content.SharedPreferences;
 
 import com.github.blazsolar.chuck.data.ApiEndpoint;
+import com.github.blazsolar.chuck.data.IsMockMode;
 import com.github.blazsolar.chuck.data.prefs.StringPreference;
 
 import javax.inject.Singleton;
@@ -35,6 +36,16 @@ public class DebugApiModule {
         MockRestAdapter mockRestAdapter = MockRestAdapter.from(restAdapter);
         AndroidMockValuePersistence.install(mockRestAdapter, preferences);
         return mockRestAdapter;
+    }
+
+    @Provides @Singleton
+    JokesService provideJokesService(RestAdapter restAdapter, MockRestAdapter mockRestAdapter,
+         @IsMockMode boolean isMockMode, MockJokesService mockJokesService) {
+        if (isMockMode) {
+            return mockRestAdapter.create(JokesService.class, mockJokesService);
+        } else {
+            return restAdapter.create(JokesService.class);
+        }
     }
 
 }

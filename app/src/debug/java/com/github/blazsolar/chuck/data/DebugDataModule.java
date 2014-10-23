@@ -44,6 +44,10 @@ public class DebugDataModule {
         return new StringPreference(preferences, "debug_endpoint", ApiEndpoints.MOCK_MODE.url);
     }
 
+    @Provides @Singleton @IsMockMode boolean provideIsMockMode(@ApiEndpoint StringPreference preferences) {
+        return ApiEndpoints.isMockMode(preferences.get());
+    }
+
     private static SSLSocketFactory createBadSslSocketFactory() {
         try {
             // Construct SSLSocketFactory that accepts any cert.

@@ -1,5 +1,6 @@
 package com.github.blazsolar.chuck.data.api;
 
+import com.github.blazsolar.chuck.data.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -27,7 +28,7 @@ public class ApiModule {
 
     @Provides @Singleton
     Endpoint provideEndpoint() {
-        return Endpoints.newFixedEndpoint("http://api.icndb.com/");
+        return Endpoints.newFixedEndpoint(Constants.API_ENDPOINT);
     }
 
     @Provides @Singleton

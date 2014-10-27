@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.github.blazsolar.chuck.data.ApiEndpoint;
 import com.github.blazsolar.chuck.data.api.ApiEndpoints;
 import com.github.blazsolar.chuck.data.prefs.StringPreference;
 import com.github.blazsolar.chuck.ui.main.MainActivity;
+import com.github.blazsolar.chuck.util.Strings;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -94,13 +96,13 @@ public class DebugAppContainer implements AppContainer {
     @Override
     public ViewGroup get(Activity activity) {
         this.activity = activity;
-        drawerContext = activity;
+        drawerContext = new ContextThemeWrapper(activity, android.R.style.Theme_Holo);
 
         activity.setContentView(R.layout.debug_activity_frame);
 
         // Manually find the debug drawer and inflate the drawer layout inside of it.
         ViewGroup drawer = findById(activity, R.id.debug_drawer);
-        LayoutInflater.from(activity).inflate(R.layout.debug_drawer_content, drawer);
+        LayoutInflater.from(drawerContext).inflate(R.layout.debug_drawer_content, drawer);
 
         inject(this, activity);
 
@@ -212,7 +214,7 @@ public class DebugAppContainer implements AppContainer {
         }
 
         // We use the JSON rest adapter as the source of truth for the log level.
-        final EnumAdapter<LogLevel> loggingAdapter = new EnumAdapter<>(activity, LogLevel.class);
+        final EnumAdapter<LogLevel> loggingAdapter = new EnumAdapter<>(drawerContext, LogLevel.class);
         networkLoggingView.setAdapter(loggingAdapter);
         networkLoggingView.setSelection(restAdapter.getLogLevel().ordinal());
         networkLoggingView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -251,8 +253,8 @@ public class DebugAppContainer implements AppContainer {
     private void setupDeviceSection() {
         DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
         String densityBucket = getDensityString(displayMetrics);
-        deviceMakeView.setText(Build.MANUFACTURER);
-        deviceModelView.setText(Build.MODEL);
+        deviceMakeView.setText(Strings.truncateAt(Build.MANUFACTURER, 20));
+        deviceModelView.setText(Strings.truncateAt(Build.MODEL, 20));
         deviceResolutionView.setText(displayMetrics.heightPixels + "x" + displayMetrics.widthPixels);
         deviceDensityView.setText(displayMetrics.densityDpi + "dpi (" + densityBucket + ")");
         deviceReleaseView.setText(Build.VERSION.RELEASE);
@@ -286,7 +288,7 @@ public class DebugAppContainer implements AppContainer {
         url.setText(defaultUrl);
         url.setSelection(url.length());
 
-        new AlertDialog.Builder(activity) //
+        new AlertDialog.Builder(drawerContext) //
                 .setTitle("Set Network Endpoint")
                 .setView(view)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

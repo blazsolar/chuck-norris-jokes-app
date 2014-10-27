@@ -2,5 +2,6 @@
 <resources>
 
     <string name="debug_drawer_network_endpoint_description">Enter the URL of the server to which you want to connect.\n\ne.g., https://bob-loblaw.local/1.0/</string>
+    <string name="development_settings">Development settings</string>
 
 </resources>

@@ -96,7 +96,7 @@ public class DebugAppContainer implements AppContainer {
     @Override
     public ViewGroup get(Activity activity) {
         this.activity = activity;
-        drawerContext = new ContextThemeWrapper(activity, android.R.style.Theme_Holo);
+        drawerContext = new ContextThemeWrapper(activity, R.style.Base_Theme_AppCompat);
 
         activity.setContentView(R.layout.debug_activity_frame);
 

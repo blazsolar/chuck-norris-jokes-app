@@ -1,7 +1,7 @@
 package com.github.blazsolar.chuck.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ViewGroup;
 
 import com.github.blazsolar.chuck.App;
@@ -13,7 +13,7 @@ import dagger.ObjectGraph;
 /**
  * Created by Blaz Solar on 23/08/14.
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends ActionBarActivity {
 
     @Inject AppContainer appContainer;
 

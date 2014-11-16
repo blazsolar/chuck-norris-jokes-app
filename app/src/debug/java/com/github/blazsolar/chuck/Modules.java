@@ -5,6 +5,11 @@ package com.github.blazsolar.chuck;
  */
 final class Modules {
 
+    public static final Class[] LIST = {
+            AppModule.class,
+            DebugModule.class
+    };
+
     static Object[] list(App app) {
         return new Object[] {
                 new AppModule(app),

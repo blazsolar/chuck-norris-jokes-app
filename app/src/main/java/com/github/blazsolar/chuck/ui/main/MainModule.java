@@ -1,10 +1,9 @@
 package com.github.blazsolar.chuck.ui.main;
 
-import javax.inject.Singleton;
+import com.github.blazsolar.chuck.data.JokesDatabase;
 
 import dagger.Module;
 import dagger.Provides;
-import com.github.blazsolar.chuck.data.JokesDatabase;
 
 /**
  * Created by Blaz Solar on 23/08/14.
@@ -15,18 +14,18 @@ import com.github.blazsolar.chuck.data.JokesDatabase;
 )
 public class MainModule {
 
-    private MainView mView;
+    private MainView view;
 
     public MainModule(MainView view) {
-        mView = view;
+        this.view = view;
     }
 
-    @Provides @Singleton
+    @Provides
     public MainView provideView() {
-        return mView;
+        return view;
     }
 
-    @Provides @Singleton
+    @Provides
     public MainPresenter providePresenter(MainView view, JokesDatabase jokesDatabase) {
         return new MainPresenterImpl(view, jokesDatabase);
     }

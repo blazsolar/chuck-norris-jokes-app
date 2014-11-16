@@ -1,7 +1,5 @@
 package com.github.blazsolar.chuck.ui;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,7 +14,7 @@ import dagger.Provides;
 )
 public class DebugUiModule {
 
-    @Provides @Singleton AppContainer provideAppContainer(DebugAppContainer debugAppContainer) {
+    @Provides(type = Provides.Type.SET) AppContainer provideAppContainer(DebugAppContainer debugAppContainer) {
         return debugAppContainer;
     }
 

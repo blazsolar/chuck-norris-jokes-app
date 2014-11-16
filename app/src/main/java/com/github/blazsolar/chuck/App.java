@@ -3,41 +3,45 @@ package com.github.blazsolar.chuck;
 import android.app.Application;
 import android.content.Context;
 
-import dagger.ObjectGraph;
-
 /**
  * Created by Blaz Solar on 23/08/14.
  */
 public class App extends Application {
 
-    /** Application object graph */
-    private ObjectGraph objectGraph;
+    private AppComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        buildObjectGraphAndInject();
+        buildComponentAndInject();
     }
 
-    public void buildObjectGraphAndInject() {
-        objectGraph = ObjectGraph.create(Modules.list(this));
-        objectGraph.inject(this);
+    public void buildComponentAndInject() {
+        component = Dagger_AppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+        component.inject(this);
     }
 
-    /**
-     * Creates and return scoped object graph. It uses application object graph and
-     * adds modules passed in from parameters.
-     *
-     * @param modules Modules to add to application object graph.
-     * @return Merged object graph
-     */
-    public ObjectGraph createScopedGraph(Object... modules) {
-        return objectGraph.plus(modules);
-    }
+//    /**
+//     * Creates and return scoped object graph. It uses application object graph and
+//     * adds modules passed in from parameters.
+//     *
+//     * @param modules Modules to add to application object graph.
+//     * @return Merged object graph
+//     */
+//    public ObjectGraph createScopedGraph(Object... modules) {
+//        return objectGraph.plus(modules);
+//    }
 
-    public void inject(Object object) {
-        objectGraph.inject(object);
+//    public void inject(Object object) {
+//        objectGraph.inject(object);
+//    }
+
+
+    public AppComponent getComponent() {
+        return component;
     }
 
     /**

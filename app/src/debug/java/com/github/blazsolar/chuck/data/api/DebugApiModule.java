@@ -6,8 +6,6 @@ import com.github.blazsolar.chuck.data.ApiEndpoint;
 import com.github.blazsolar.chuck.data.IsMockMode;
 import com.github.blazsolar.chuck.data.prefs.StringPreference;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit.Endpoint;
@@ -26,19 +24,18 @@ import retrofit.android.AndroidMockValuePersistence;
 )
 public class DebugApiModule {
 
-    @Provides @Singleton
-    Endpoint provideEndpoint(@ApiEndpoint StringPreference apiEndpoint) {
+    @Provides Endpoint provideEndpoint(@ApiEndpoint StringPreference apiEndpoint) {
         return Endpoints.newFixedEndpoint(apiEndpoint.get());
     }
 
-    @Provides @Singleton
+    @Provides
     MockRestAdapter provideMockRestAdapter(RestAdapter restAdapter, SharedPreferences preferences) {
         MockRestAdapter mockRestAdapter = MockRestAdapter.from(restAdapter);
         AndroidMockValuePersistence.install(mockRestAdapter, preferences);
         return mockRestAdapter;
     }
 
-    @Provides @Singleton
+    @Provides
     JokesService provideJokesService(RestAdapter restAdapter, MockRestAdapter mockRestAdapter,
          @IsMockMode boolean isMockMode, MockJokesService mockJokesService) {
         if (isMockMode) {

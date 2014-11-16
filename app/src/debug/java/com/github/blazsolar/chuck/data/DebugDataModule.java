@@ -11,7 +11,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import javax.inject.Singleton;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -33,18 +32,18 @@ import dagger.Provides;
 )
 public class DebugDataModule {
 
-    @Provides @Singleton OkHttpClient provideOkHttpClient(Context context) {
+    @Provides(type = Provides.Type.SET) OkHttpClient provideOkHttpClient(Context context) {
         OkHttpClient client = DataModule.createOkHttpClient(context);
         client.setSslSocketFactory(createBadSslSocketFactory());
         return client;
     }
 
-    @Provides @Singleton @ApiEndpoint
+    @Provides @ApiEndpoint
     StringPreference provideEndpointPreference(SharedPreferences preferences) {
         return new StringPreference(preferences, "debug_endpoint", ApiEndpoints.MOCK_MODE.url);
     }
 
-    @Provides @Singleton @IsMockMode boolean provideIsMockMode(@ApiEndpoint StringPreference preferences) {
+    @Provides @IsMockMode boolean provideIsMockMode(@ApiEndpoint StringPreference preferences) {
         return ApiEndpoints.isMockMode(preferences.get());
     }
 

@@ -9,6 +9,7 @@ buildscript {
         classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.1"
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
         classpath 'com.github.blazsolar.gradle:play-publisher:0.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     }
 }
 
@@ -16,10 +17,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'crashlytics'
 apply plugin: 'com.github.blazsolar.play-publisher'
 apply plugin: 'com.github.blazsolar.coveralls'
+apply plugin: 'com.neenbedankt.android-apt'
 apply from: '../config/quality.gradle'
 
 repositories {
     maven { url 'http://download.crashlytics.com/maven' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 if (!project.hasProperty("chuckProductionStorePassword")) {
@@ -73,7 +76,7 @@ android {
         }
 
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -94,7 +97,7 @@ android {
 }
 
 dependencies {
-    compile 'com.squareup.dagger:dagger:1.2.2'
+    compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
@@ -106,7 +109,8 @@ dependencies {
 
     debugCompile 'com.squareup.retrofit:retrofit-mock:1.6.1'
 
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    apt 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     androidTestCompile 'org.mockito:mockito-core:1.9.5'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'

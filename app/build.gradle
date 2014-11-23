@@ -39,7 +39,7 @@ def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone(
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.1"
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "com.github.blazsolar.chuck"
@@ -73,7 +73,7 @@ android {
         }
 
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

@@ -21,7 +21,7 @@ public class App extends Application {
     }
 
     public void buildObjectGraphAndInject() {
-        objectGraph = ObjectGraph.create(Modules.list(this));
+        objectGraph = ObjectGraph.create(getModules());
         objectGraph.inject(this);
     }
 
@@ -48,6 +48,10 @@ public class App extends Application {
      */
     public static App get(Context context) {
         return (App) context.getApplicationContext();
+    }
+
+    protected Object[] getModules() {
+        return Modules.list(this);
     }
 
 }

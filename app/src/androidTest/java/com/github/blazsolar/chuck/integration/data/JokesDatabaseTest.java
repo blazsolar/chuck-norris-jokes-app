@@ -1,9 +1,12 @@
 package com.github.blazsolar.chuck.integration.data;
 
+import android.content.Context;
 import android.test.AndroidTestCase;
 
 import com.github.blazsolar.chuck.data.DataModule;
 import com.github.blazsolar.chuck.data.JokesDatabase;
+import com.github.blazsolar.chuck.data.api.JokesService;
+import com.github.blazsolar.chuck.data.api.model.Joke;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
@@ -22,8 +25,6 @@ import dagger.Provides;
 import retrofit.Endpoint;
 import retrofit.Endpoints;
 import rx.observers.EmptyObserver;
-import com.github.blazsolar.chuck.data.api.JokesService;
-import com.github.blazsolar.chuck.data.api.model.Joke;
 
 public class JokesDatabaseTest extends AndroidTestCase {
 
@@ -128,6 +129,10 @@ public class JokesDatabaseTest extends AndroidTestCase {
         @Provides @Singleton
         Endpoint provideEndpoint(MockWebServer server) {
             return Endpoints.newFixedEndpoint(server.getUrl("/").toString());
+        }
+
+        @Provides @Singleton Context provideContext() {
+            return getContext();
         }
 
     }

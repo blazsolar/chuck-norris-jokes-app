@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
 import android.widget.TextView;
 
-import com.github.blazsolar.chuck.AppModule;
-import com.github.blazsolar.chuck.DebugModule;
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
 import com.github.blazsolar.chuck.integration.mock.MockApplicationCompact;
+import com.github.blazsolar.chuck.ui.AppContainer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -52,8 +51,6 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
             @Override
             protected Object[] getModules() {
                 return new Object[] {
-                        new AppModule(mApp),
-                        new DebugModule(),
                         new TestModule()
                 };
             }
@@ -125,6 +122,10 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
         @Provides @Singleton
         public MainPresenter providePresenter() {
             return mock(MainPresenter.class);
+        }
+
+        @Provides @Singleton AppContainer provideAppContainer() {
+            return AppContainer.DEFAULT;
         }
 
     }

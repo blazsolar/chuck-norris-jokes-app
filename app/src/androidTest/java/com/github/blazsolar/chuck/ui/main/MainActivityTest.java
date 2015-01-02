@@ -1,10 +1,10 @@
 package com.github.blazsolar.chuck.ui.main;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
+import android.view.ContextThemeWrapper;
 import android.widget.TextView;
 
 import com.github.blazsolar.chuck.R;
@@ -38,23 +38,15 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
         System.setProperty("dexmaker.dexcache", getInstrumentation().getTargetContext().getCacheDir().getPath());
 
-        mContext = new ContextWrapper(getInstrumentation().getTargetContext()) {
+        mContext = new ContextThemeWrapper(getInstrumentation().getTargetContext(), R.style.AppTheme) {
             @Override
             public Context getApplicationContext() {
                 return mApp;
             }
         };
+        setActivityContext(mContext);
 
-
-
-        mApp = new MockApplicationCompact(mContext) {
-            @Override
-            protected Object[] getModules() {
-                return new Object[] {
-                        new TestModule()
-                };
-            }
-        };
+        mApp = new TestApp(mContext);
         mApp.onCreate();
 
         setApplication(mApp);
@@ -64,7 +56,7 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
     public void testOnCreate() throws Exception {
 
-        Intent intent = new Intent(getInstrumentation().getTargetContext(), MainActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
         startActivity(intent, null, null);
 
         verify(mPresenter).onCreate(null);
@@ -111,7 +103,8 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
     @Module(
             injects = {
                     MainActivity.class,
-                    MainActivityTest.class
+                    MainActivityTest.class,
+                    TestApp.class
             },
             library = true,
             overrides = true,
@@ -128,5 +121,20 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
             return AppContainer.DEFAULT;
         }
 
+    }
+
+    private class TestApp extends MockApplicationCompact {
+
+
+        public TestApp(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected Object[] getModules() {
+            return new Object[] {
+                    new TestModule()
+            };
+        }
     }
 }

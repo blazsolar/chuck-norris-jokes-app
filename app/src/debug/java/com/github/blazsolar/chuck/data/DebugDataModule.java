@@ -23,16 +23,14 @@ import dagger.Provides;
  * Created by Blaz Solar on 22/10/14.
  */
 @Module(
-        complete = false,
-        library = true,
-        overrides = true,
         includes = {
+                DataModule.class,
                 DebugApiModule.class
         }
 )
 public class DebugDataModule {
 
-    @Provides(type = Provides.Type.SET) OkHttpClient provideOkHttpClient(Context context) {
+    @Provides OkHttpClient provideOkHttpClient(Context context) {
         OkHttpClient client = DataModule.createOkHttpClient(context);
         client.setSslSocketFactory(createBadSslSocketFactory());
         return client;

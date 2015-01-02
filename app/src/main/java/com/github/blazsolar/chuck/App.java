@@ -24,22 +24,6 @@ public class App extends Application {
         component.inject(this);
     }
 
-//    /**
-//     * Creates and return scoped object graph. It uses application object graph and
-//     * adds modules passed in from parameters.
-//     *
-//     * @param modules Modules to add to application object graph.
-//     * @return Merged object graph
-//     */
-//    public ObjectGraph createScopedGraph(Object... modules) {
-//        return objectGraph.plus(modules);
-//    }
-
-//    public void inject(Object object) {
-//        objectGraph.inject(object);
-//    }
-
-
     public AppComponent getComponent() {
         return component;
     }
@@ -52,10 +36,6 @@ public class App extends Application {
      */
     public static App get(Context context) {
         return (App) context.getApplicationContext();
-    }
-
-    protected Object[] getModules() {
-        return Modules.list(this);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.github.blazsolar.chuck.data.api;
 
-import com.github.blazsolar.chuck.data.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -10,7 +9,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.Endpoint;
-import retrofit.Endpoints;
 import retrofit.RestAdapter;
 import retrofit.client.Client;
 import retrofit.client.OkClient;
@@ -25,11 +23,6 @@ import retrofit.converter.GsonConverter;
         library = true
 )
 public class ApiModule {
-
-    @Provides @Singleton
-    Endpoint provideEndpoint() {
-        return Endpoints.newFixedEndpoint(Constants.API_ENDPOINT);
-    }
 
     @Provides @Singleton
     Gson provideGson() {
@@ -53,11 +46,6 @@ public class ApiModule {
                 .setConverter(converter)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
-    }
-
-    @Provides @Singleton
-    JokesService provideJokesService(RestAdapter adapter) {
-        return adapter.create(JokesService.class);
     }
 
 }

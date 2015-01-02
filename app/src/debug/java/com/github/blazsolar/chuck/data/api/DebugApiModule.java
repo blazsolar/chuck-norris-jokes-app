@@ -17,11 +17,7 @@ import retrofit.android.AndroidMockValuePersistence;
 /**
  * Created by Blaz Solar on 22/10/14.
  */
-@Module(
-        complete = false,
-        library = true,
-        overrides = true
-)
+@Module
 public class DebugApiModule {
 
     @Provides Endpoint provideEndpoint(@ApiEndpoint StringPreference apiEndpoint) {

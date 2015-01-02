@@ -1,63 +1,48 @@
 package com.github.blazsolar.chuck.integration.data;
 
-import android.content.Context;
 import android.test.AndroidTestCase;
 
-import com.github.blazsolar.chuck.data.DataModule;
 import com.github.blazsolar.chuck.data.JokesDatabase;
 import com.github.blazsolar.chuck.data.api.JokesService;
 import com.github.blazsolar.chuck.data.api.model.Joke;
-import com.squareup.okhttp.mockwebserver.MockResponse;
-import com.squareup.okhttp.mockwebserver.MockWebServer;
 
-import junit.framework.Assert;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.ObjectGraph;
-import dagger.Provides;
-import retrofit.Endpoint;
-import retrofit.Endpoints;
+import rx.Observable;
 import rx.observers.EmptyObserver;
+
+import static org.mockito.Mockito.when;
 
 public class JokesDatabaseTest extends AndroidTestCase {
 
-    @Inject JokesService mService;
-    @Inject JokesDatabase mDatabase;
-    @Inject MockWebServer mServer;
-
-    ObjectGraph mObjectGraph;
+    @Mock JokesService service;
+    JokesDatabase database;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
-        mObjectGraph = ObjectGraph.create(new TestModule());
-        mObjectGraph.inject(this);
-    }
+        MockitoAnnotations.initMocks(this);
 
-    @Override
-    public void tearDown() throws Exception {
-        mObjectGraph = null;
-        mServer.shutdown();
-
-        super.tearDown();
+        database = new JokesDatabase(service);
     }
 
     public void testLoadJoke() throws Exception {
 
-        mServer.enqueue(new MockResponse()
-            .setBody("{ \"type\": \"success\", \"value\": { \"id\": 273, \"joke\": \"Chuck Norris joke.\", \"categories\": [\"nerdy\"] } }"));
+        Joke joke = new Joke(273, "Chuck Norris joke.", new String[]{"nerdy"});
+
+        com.github.blazsolar.chuck.data.api.model.Response<Joke> response = new com.github.blazsolar.chuck.data.api.model.Response<>(joke);
+
+        when(service.randomJoke()).thenReturn(
+                Observable.just(response));
 
         final CountDownLatch lock = new CountDownLatch(1);
 
-        mDatabase.loadJoke(new EmptyObserver<Joke>() {
+        database.loadJoke(new EmptyObserver<Joke>() {
 
             @Override
             public void onNext(Joke joke) {
@@ -82,12 +67,14 @@ public class JokesDatabaseTest extends AndroidTestCase {
 
     public void testLoadJokeEmpty() throws Exception {
 
-        mServer.enqueue(new MockResponse()
-                .setBody("{ \"type\": \"success\" }"));
+        com.github.blazsolar.chuck.data.api.model.Response<Joke> response = new com.github.blazsolar.chuck.data.api.model.Response<>();
+
+        when(service.randomJoke()).thenReturn(
+                Observable.just(response));
 
         final CountDownLatch lock = new CountDownLatch(1);
 
-        mDatabase.loadJoke(new EmptyObserver<Joke>() {
+        database.loadJoke(new EmptyObserver<Joke>() {
 
             @Override
             public void onNext(Joke joke) {
@@ -107,33 +94,4 @@ public class JokesDatabaseTest extends AndroidTestCase {
 
     }
 
-    @Module(
-            injects = JokesDatabaseTest.class,
-            complete = false,
-            overrides = true,
-            includes = DataModule.class
-    )
-    public class TestModule {
-
-        @Provides @Singleton
-        MockWebServer provideMockWebServer() {
-            MockWebServer server = new MockWebServer();
-            try {
-                server.play();
-            } catch (IOException e) {
-                Assert.fail();
-            }
-            return server;
-        }
-
-        @Provides @Singleton
-        Endpoint provideEndpoint(MockWebServer server) {
-            return Endpoints.newFixedEndpoint(server.getUrl("/").toString());
-        }
-
-        @Provides @Singleton Context provideContext() {
-            return getContext();
-        }
-
-    }
 }

@@ -7,4 +7,7 @@
         <ignore path="app/src/main/res/values/com_crashlytics_export_strings.xml" />
     </issue>
     <issue id="StopShip" severity="error" />
+    <issue id="InvalidPackage">
+        <ignore regexp="okio-1.0.0.jar" />
+    </issue>
 </lint>

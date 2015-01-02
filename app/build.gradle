@@ -105,7 +105,7 @@ dependencies {
     compile 'com.netflix.rxjava:rxjava-android:0.20.0'
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.crashlytics.android:crashlytics:1.+'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:appcompat-v7:21.0.3'
 
     debugCompile 'com.squareup.retrofit:retrofit-mock:1.6.1'
 

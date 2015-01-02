@@ -14,7 +14,7 @@ import dagger.Provides;
 )
 public class DebugUiModule {
 
-    @Provides(type = Provides.Type.SET) AppContainer provideAppContainer(DebugAppContainer debugAppContainer) {
+    @Provides AppContainer provideAppContainer(DebugAppContainer debugAppContainer) {
         return debugAppContainer;
     }
 

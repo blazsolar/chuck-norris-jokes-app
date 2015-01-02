@@ -1,18 +1,16 @@
 package com.github.blazsolar.chuck.ui.main;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
+import android.view.ContextThemeWrapper;
 import android.widget.TextView;
 
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
 import com.github.blazsolar.chuck.integration.mock.MockApplicationCompact;
-
-import java.util.Arrays;
-import java.util.List;
+import com.github.blazsolar.chuck.ui.AppContainer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,21 +38,15 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
         System.setProperty("dexmaker.dexcache", getInstrumentation().getTargetContext().getCacheDir().getPath());
 
-        mContext = new ContextWrapper(getInstrumentation().getTargetContext()) {
+        mContext = new ContextThemeWrapper(getInstrumentation().getTargetContext(), R.style.AppTheme) {
             @Override
             public Context getApplicationContext() {
                 return mApp;
             }
         };
+        setActivityContext(mContext);
 
-        final List<Object> modules = Arrays.<Object>asList(new TestModule());
-
-        mApp = new MockApplicationCompact(mContext) {
-            @Override
-            protected List<Object> getModules() {
-                return modules;
-            }
-        };
+        mApp = new TestApp(mContext);
         mApp.onCreate();
 
         setApplication(mApp);
@@ -64,7 +56,7 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
     public void testOnCreate() throws Exception {
 
-        Intent intent = new Intent(getInstrumentation().getTargetContext(), MainActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
         startActivity(intent, null, null);
 
         verify(mPresenter).onCreate(null);
@@ -111,10 +103,12 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
     @Module(
             injects = {
                     MainActivity.class,
-                    MainActivityTest.class
+                    MainActivityTest.class,
+                    TestApp.class
             },
             library = true,
-            overrides = true
+            overrides = true,
+            complete = false
     )
     public class TestModule {
 
@@ -123,5 +117,24 @@ public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
             return mock(MainPresenter.class);
         }
 
+        @Provides @Singleton AppContainer provideAppContainer() {
+            return AppContainer.DEFAULT;
+        }
+
+    }
+
+    private class TestApp extends MockApplicationCompact {
+
+
+        public TestApp(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected Object[] getModules() {
+            return new Object[] {
+                    new TestModule()
+            };
+        }
     }
 }

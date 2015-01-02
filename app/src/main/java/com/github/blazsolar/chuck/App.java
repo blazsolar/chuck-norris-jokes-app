@@ -54,4 +54,8 @@ public class App extends Application {
         return (App) context.getApplicationContext();
     }
 
+    protected Object[] getModules() {
+        return Modules.list(this);
+    }
+
 }

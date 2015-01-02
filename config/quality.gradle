@@ -88,7 +88,7 @@ task findbugs(type: FindBugs, dependsOn: 'compileDebugJava') {
 task pmd(type: Pmd) {
     ruleSetFiles = files("${project.rootDir}/config/quality/pmd/pmd-ruleset.xml")
     ignoreFailures = true
-    ruleSets = ["basic", "braces", "strings", "android"]
+    ruleSets = ["java-basic", "java-braces", "java-strings", "java-android"]
 
     source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
     include '**/*.java'

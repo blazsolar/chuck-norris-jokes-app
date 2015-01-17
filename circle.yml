@@ -21,4 +21,5 @@ test:
       parallel: true
   - config/ci/circle/wait.sh:
       parallel: true
-  - ./gradlew connectedCheck
+  - ./gradlew connectedCheck:
+      timeout: 600

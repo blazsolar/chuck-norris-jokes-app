@@ -6,6 +6,10 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter "android-21"
     - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
 
+dependencies:
+  override:
+    - ./gradlew dependencies -S
+
 test:
   override:
   - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-boot-anim -no-audio:

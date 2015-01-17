@@ -21,5 +21,6 @@ test:
       parallel: true
   - config/ci/circle/wait.sh:
       parallel: true
+  - adb devices
   - ./gradlew connectedCheck:
       timeout: 600

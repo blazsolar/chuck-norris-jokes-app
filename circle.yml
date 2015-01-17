@@ -16,7 +16,7 @@ dependencies:
 
 test:
   override:
-  - $ANDROID_HOME/tools/android create avd -n testing -f -t android-21 &&
+  - $ANDROID_HOME/tools/android create avd -n testing -f -t android-21
   - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-boot-anim -no-audio:
       background: true
       parallel: true

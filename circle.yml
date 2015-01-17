@@ -9,6 +9,7 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter "build-tools-21.1.2"
     - echo y | android update sdk --no-ui --all --filter "android-21"
     - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+    - echo y | android update sdk --no-ui --all --filter "sys-img-armeabi-v7a-android-21"
 
 dependencies:
   override:
@@ -16,7 +17,7 @@ dependencies:
 
 test:
   override:
-  - echo no | android create avd -n testing -f -t android-21 --abi armeabi-v7a
+  - echo no | android create avd -n testing -f -t android-21 --abi "armeabi-v7a"
   - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-boot-anim -no-audio:
       background: true
       parallel: true

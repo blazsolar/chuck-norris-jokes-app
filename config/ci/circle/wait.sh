@@ -1,13 +1,25 @@
 #!/bin/bash
 
-export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
+# Originally written by Ralf Kistner <ralf@embarkmobile.com>, but placed in the public domain
 
-while true; do
-  BOOTUP=$(adb shell getprop init.svc.bootanim | grep -oe '[a-z]\+')
-  if [[ "$BOOTUP" = "stopped" ]]; then
-    break
+set +e
+
+bootanim=""
+failcounter=0
+timeout_in_sec=360
+
+until [[ "$bootanim" =~ "stopped" ]]; do
+  bootanim=`adb -e shell getprop init.svc.bootanim 2>&1 &`
+  if [[ "$bootanim" =~ "device not found" || "$bootanim" =~ "device offline"
+    || "$bootanim" =~ "running" ]]; then
+    let "failcounter += 1"
+    echo "Waiting for emulator to start"
+    if [[ $failcounter -gt timeout_in_sec ]]; then
+      echo "Timeout ($timeout_in_sec seconds) reached; failed to start emulator"
+      exit 1
+    fi
   fi
-
-  echo "Got: '$BOOTUP', waiting for 'stopped'"
-  sleep 5
+  sleep 1
 done
+
+echo "Emulator is ready"

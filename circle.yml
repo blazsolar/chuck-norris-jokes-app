@@ -16,11 +16,10 @@ dependencies:
 test:
   override:
   - echo no | android create avd -n testing -f -t android-21 --abi "armeabi-v7a"
-  - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-boot-anim -no-audio:
+  - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-audio:
       background: true
       parallel: true
   - config/ci/circle/wait.sh:
       parallel: true
-  - adb devices
   - ./gradlew connectedCheck:
       timeout: 600

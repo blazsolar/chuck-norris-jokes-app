@@ -37,7 +37,8 @@ if (!project.hasProperty("chuckProductionKey")) {
     ext.chuckProductionKey = ""
 }
 
-def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitSha = 'test'
+//def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
 android {

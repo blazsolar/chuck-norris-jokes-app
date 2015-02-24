@@ -40,6 +40,10 @@ if (!project.hasProperty("chuckProductionKey")) {
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
+// TODO remove when adbOptions DLS will be released
+// https://code.google.com/p/android/issues/detail?id=104305
+com.android.ddmlib.DdmPreferences.setTimeOut(30000)
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"

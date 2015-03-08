@@ -18,7 +18,8 @@ test:
   - echo no | android create avd -n testing -f -t android-21 --abi "armeabi-v7a"
   - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-audio:
       background: true
-  - config/ci/circle/wait.sh:
+      parallel: true
+  - config/ci/circle/wait.sh
   - config/ci/circle/run_tests.sh:
       timeout: 600
       parallel: true

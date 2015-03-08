@@ -18,11 +18,10 @@ test:
   - echo no | android create avd -n testing -f -t android-21 --abi "armeabi-v7a"
   - $ANDROID_HOME/tools/emulator -avd testing -no-window -no-audio:
       background: true
-      parallel: true
   - config/ci/circle/wait.sh:
-      parallel: true
-  - ./gradlew connectedCheck:
+  - config/ci/circle/run_tests.sh:
       timeout: 600
+      parallel: true
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/app/build/outputs/androidTest-results/connected/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

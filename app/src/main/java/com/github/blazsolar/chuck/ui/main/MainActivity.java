@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void inject() {
-        Dagger_MainComponent.builder()
+        DaggerMainComponent.builder()
                 .appComponent(App.get(this).getComponent())
                 .mainModule(new MainModule(this))
                 .build()

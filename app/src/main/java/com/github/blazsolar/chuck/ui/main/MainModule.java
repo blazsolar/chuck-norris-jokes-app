@@ -8,10 +8,7 @@ import dagger.Provides;
 /**
  * Created by Blaz Solar on 23/08/14.
  */
-@Module(
-        injects = MainActivity.class,
-        complete = false
-)
+@Module
 public class MainModule {
 
     private MainView view;

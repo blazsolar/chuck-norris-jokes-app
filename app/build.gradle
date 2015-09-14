@@ -22,7 +22,6 @@ apply from: '../config/quality.gradle'
 
 repositories {
     maven { url 'http://download.crashlytics.com/maven' }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 if (!project.hasProperty("chuckProductionStorePassword")) {
@@ -97,7 +96,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
+    compile 'com.google.dagger:dagger:2.0'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
@@ -109,7 +108,7 @@ dependencies {
 
     debugCompile 'com.squareup.retrofit:retrofit-mock:1.6.1'
 
-    apt 'com.google.dagger:dagger-compiler:2.0-SNAPSHOT'
+    apt 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     androidTestCompile 'org.mockito:mockito-core:1.9.5'

@@ -18,10 +18,7 @@ import retrofit.converter.GsonConverter;
 /**
  * Created by Blaz Solar on 23/08/14.
  */
-@Module(
-        complete = false,
-        library = true
-)
+@Module
 public class ApiModule {
 
     @Provides @Singleton

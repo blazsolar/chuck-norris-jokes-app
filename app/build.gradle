@@ -46,7 +46,7 @@ com.android.ddmlib.DdmPreferences.setTimeOut(60000)
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.github.blazsolar.chuck"

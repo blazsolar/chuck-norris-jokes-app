@@ -39,6 +39,7 @@ if (!project.hasProperty("chuckProductionKey")) {
 def gitSha = 'testTeamcCity'
 //def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+com.android.ddmlib.DdmPreferences.setTimeOut(60000)
 
 android {
     compileSdkVersion 23

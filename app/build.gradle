@@ -131,7 +131,7 @@ dependencies {
 
 configurations.all {
     resolutionStrategy {
-        force 'com.android.support:support-annotations:22.2.0'
+        force 'com.android.support:support-annotations:21.0.3'
     }
 }
 

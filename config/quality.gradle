@@ -1,8 +1,9 @@
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
+//apply plugin: 'findbugs'
 apply plugin: 'pmd'
 
-check.dependsOn 'checkstyle', 'findbugs', 'pmd'
+//check.dependsOn 'checkstyle', 'findbugs', 'pmd'
+check.dependsOn 'checkstyle', 'pmd'
 
 /**
  * Generates Checkstyle report for debug build.
@@ -52,35 +53,35 @@ task checkstyleReport << {
     )
 }
 
-/**
- * Generates findbug reports
- *
- * Checks are always run for debug build so we need to depend on compileDebugJava
- */
-task findbugs(type: FindBugs, dependsOn: 'compileDebugJava') {
-    ignoreFailures = true
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = new File("${project.rootDir}/config/quality/findbugs/findbugs-filter.xml")
-    classes = files("$project.buildDir/intermediates/classes")
-
-    source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        html {
-            enabled false
-        }
-        xml {
-            enabled true
-            destination "$project.buildDir/outputs/reports/findbugs/findbugs-${project.name}.xml"
-            xml.withMessages true
-        }
-    }
-
-    classpath = files()
-}
+///**
+// * Generates findbug reports
+// *
+// * Checks are always run for debug build so we need to depend on compileDebugJava
+// */
+//task findbugs(type: FindBugs, dependsOn: 'compileDebugJava') {
+//    ignoreFailures = true
+//    effort = "max"
+//    reportLevel = "high"
+//    excludeFilter = new File("${project.rootDir}/config/quality/findbugs/findbugs-filter.xml")
+//    classes = files("$project.buildDir/intermediates/classes")
+//
+//    source project.android.sourceSets.main.java.getSrcDirs(), project.android.sourceSets.debug.java.getSrcDirs()
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//
+//    reports {
+//        html {
+//            enabled false
+//        }
+//        xml {
+//            enabled true
+//            destination "$project.buildDir/outputs/reports/findbugs/findbugs-${project.name}.xml"
+//            xml.withMessages true
+//        }
+//    }
+//
+//    classpath = files()
+//}
 
 /**
  * Generates PMD report

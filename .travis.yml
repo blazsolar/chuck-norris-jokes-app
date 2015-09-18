@@ -1,5 +1,9 @@
+sudo: required
 language: android
 jdk: oraclejdk7
+
+services:
+  - docker
 
 env:
   matrix:
@@ -15,6 +19,10 @@ android:
     - extra-android-m2repository
 
 before_install:
+  - docker build -t blazsolar/android .
+  - docker run -d -p 127.0.0.1:80:4567 blazsolar/android /bin/sh -c "cd /root/root; bundle exec foreman start;"
+  - docker ps -a
+  - docker run blazsolar/android /bin/sh -c "cd /root/root; bundle exec rake test"
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
 

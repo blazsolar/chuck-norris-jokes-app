@@ -53,12 +53,13 @@ android {
         versionName "1.1"
 
         resConfigs "en"
-        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+//        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     signingConfigs {
@@ -75,7 +76,7 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
-            testCoverageEnabled = true
+            testCoverageEnabled true
         }
 
         release {
@@ -90,7 +91,7 @@ android {
     }
 
     jacoco {
-        version = '0.7.1.201405082137'
+        version = "0.7.5.201505241946"
     }
 
     compileOptions {
@@ -120,8 +121,8 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
 
     androidTestCompile 'org.mockito:mockito-core:1.10.5'

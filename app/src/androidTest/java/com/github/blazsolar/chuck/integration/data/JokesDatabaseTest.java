@@ -7,7 +7,6 @@ import com.github.blazsolar.chuck.data.api.JokesService;
 import com.github.blazsolar.chuck.data.api.model.Joke;
 
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.observers.EmptyObserver;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class JokesDatabaseTest extends AndroidTestCase {
@@ -26,7 +26,9 @@ public class JokesDatabaseTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        MockitoAnnotations.initMocks(this);
+        System.setProperty("dexmaker.dexcache", getContext().getCacheDir().getPath());
+
+        service = mock(JokesService.class);
 
         database = new JokesDatabase(service);
     }
@@ -69,8 +71,7 @@ public class JokesDatabaseTest extends AndroidTestCase {
 
         com.github.blazsolar.chuck.data.api.model.Response<Joke> response = new com.github.blazsolar.chuck.data.api.model.Response<>();
 
-        when(service.randomJoke()).thenReturn(
-                Observable.just(response));
+        when(service.randomJoke()).thenReturn(Observable.just(response));
 
         final CountDownLatch lock = new CountDownLatch(1);
 

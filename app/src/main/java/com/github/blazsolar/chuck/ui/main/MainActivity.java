@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+import com.github.blazsolar.chuck.App;
 import com.github.blazsolar.chuck.R;
 import com.github.blazsolar.chuck.data.api.model.Joke;
 import com.github.blazsolar.chuck.ui.BaseActivity;
@@ -17,7 +18,7 @@ import butterknife.InjectView;
 
 public class MainActivity extends BaseActivity implements MainView {
 
-    @Inject MainPresenter mPresenter;
+    @Inject MainPresenter presenter;
 
     @InjectView(R.id.toolbar) Toolbar toolbar;
     @InjectView(R.id.joke) TextView jokeView;
@@ -29,30 +30,34 @@ public class MainActivity extends BaseActivity implements MainView {
         ButterKnife.inject(this);
 
         setSupportActionBar(toolbar);
-        mPresenter.onCreate(savedInstanceState);
+        presenter.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void inject() {
+        DaggerMainComponent.builder()
+                .appComponent(App.get(this).getComponent())
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        mPresenter.onSaveInstanceState(outState);
+        presenter.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        mPresenter.onStop();
+        presenter.onStop();
     }
 
     @Override
-    public Object[] getModules() {
-        return new Object[] { new MainModule(this) };
-    }
-
-    @Override
-    public int getContentLayout() {
+    protected int getContentLayout() {
         return R.layout.activity_main;
     }
 

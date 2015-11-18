@@ -9,6 +9,7 @@ buildscript {
         classpath "com.github.blazsolar.gradle:coveralls-gradle-plugin:2.0.1"
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
         classpath 'com.github.blazsolar.gradle:play-publisher:0.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     }
 }
 
@@ -16,6 +17,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'crashlytics'
 apply plugin: 'com.github.blazsolar.play-publisher'
 apply plugin: 'com.github.blazsolar.coveralls'
+apply plugin: 'com.neenbedankt.android-apt'
 apply from: '../config/quality.gradle'
 
 repositories {
@@ -34,12 +36,14 @@ if (!project.hasProperty("chuckProductionKey")) {
     ext.chuckProductionKey = ""
 }
 
-def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitSha = 'testTeamcCity'
+//def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+com.android.ddmlib.DdmPreferences.setTimeOut(60000)
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.github.blazsolar.chuck"
@@ -49,10 +53,13 @@ android {
         versionName "1.2"
 
         resConfigs "en"
-        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+//        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     signingConfigs {
@@ -69,7 +76,7 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
-            testCoverageEnabled = true
+            testCoverageEnabled true
         }
 
         release {
@@ -84,17 +91,22 @@ android {
     }
 
     jacoco {
-        version = '0.7.1.201405082137'
+        version = "0.7.5.201505241946"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    adbOptions {
+        timeOutInMs 60000
+    }
+
 }
 
 dependencies {
-    compile 'com.squareup.dagger:dagger:1.2.2'
+    compile 'com.google.dagger:dagger:2.0'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
@@ -102,18 +114,32 @@ dependencies {
     compile 'com.netflix.rxjava:rxjava-android:0.20.0'
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.crashlytics.android:crashlytics:1.+'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
 
     debugCompile 'com.squareup.retrofit:retrofit-mock:1.6.1'
 
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    androidTestCompile 'org.mockito:mockito-core:1.9.5'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+
+    androidTestCompile 'org.mockito:mockito-core:1.10.5'
+    androidTestCompile 'com.crittercism.dexmaker:dexmaker:1.4'
+    androidTestCompile 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
+    androidTestCompile 'com.crittercism.dexmaker:dexmaker-dx:1.4'
     androidTestCompile('com.squareup.okhttp:mockwebserver:2.0.0') {
         exclude group: 'com.squareup.okhttp', module: 'okhttp'
     }
 }
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-annotations:23.0.1'
+    }
+}
+
 
 coveralls {
     jacocoReportPath = 'build/outputs/reports/coverage/debug/report.xml'

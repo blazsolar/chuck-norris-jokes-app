@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 
+import com.github.blazsolar.chuck.App;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import com.github.blazsolar.chuck.App;
 
 /**
  * Created by Blaz Solar on 24/08/14.
@@ -38,8 +38,4 @@ public class MockApplicationCompact extends App {
         }
     }
 
-    @Override
-    public void inject(Object object) {
-        super.inject(object);
-    }
 }

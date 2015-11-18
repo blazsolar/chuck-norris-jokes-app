@@ -2,25 +2,13 @@ package com.github.blazsolar.chuck;
 
 import android.content.Context;
 
-import com.github.blazsolar.chuck.data.DataModule;
-import com.github.blazsolar.chuck.ui.UIModule;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
 /**
  * Created by Blaz Solar on 23/08/14.
  */
-@Module(
-        injects = App.class,
-        library = true,
-        includes = {
-                DataModule.class,
-                UIModule.class
-        }
-)
+@Module
 public class AppModule {
 
     private App mApp;
@@ -29,13 +17,11 @@ public class AppModule {
         mApp = app;
     }
 
-    @Provides @Singleton
-    public Context provideApplicationContext() {
+    @Provides public Context provideApplicationContext() {
         return mApp;
     }
 
-    @Provides @Singleton
-    public App provideApplication() {
+    @Provides public App provideApplication() {
         return mApp;
     }
 }

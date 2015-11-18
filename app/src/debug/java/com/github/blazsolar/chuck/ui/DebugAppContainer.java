@@ -322,7 +322,7 @@ public class DebugAppContainer implements AppContainer {
         Intent newApp = new Intent(app, MainActivity.class);
         newApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         app.startActivity(newApp);
-        App.get(app).buildObjectGraphAndInject();
+        App.get(app).buildComponentAndInject();
     }
 
 }
